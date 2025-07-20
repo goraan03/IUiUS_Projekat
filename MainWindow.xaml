@@ -5,8 +5,43 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:IUiUS_Projekat"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
-    <Grid>
+        Title="Kursevi" Height="450" Width="800">
+    <Grid Margin="10">
+        <StackPanel>
+            <CheckBox x:Name="SelectAllCheckBox" Content="Označi sve" Checked="SelectAll_Checked" Unchecked="SelectAll_Unchecked" Margin="0,0,0,10"/>
+            <DataGrid x:Name="KurseviGrid" AutoGenerateColumns="False" IsReadOnly="True" SelectionMode="Extended">
+                <DataGrid.Columns>
+                    <DataGridTemplateColumn Header="Izaberi">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <CheckBox IsChecked="{Binding IsSelected, Mode=TwoWay}"/>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
 
+                    <DataGridTemplateColumn Header="Naziv">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock>
+                                    <Hyperlink Click="Naziv_Click">
+                                        <TextBlock Text="{Binding Naziv}" />
+                                    </Hyperlink>
+                                </TextBlock>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+
+                    <DataGridTemplateColumn Header="Slika">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <Image Source="{Binding SlikaPath}" Height="50"/>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+
+                    <DataGridTextColumn Header="Datum dodavanja" Binding="{Binding DatumDodavanja, StringFormat=dd.MM.yyyy.}" />
+                </DataGrid.Columns>
+            </DataGrid>
+        </StackPanel>
     </Grid>
 </Window>
