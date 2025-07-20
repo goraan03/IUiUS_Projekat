@@ -1,14 +1,16 @@
-﻿using System.Configuration;
-using System.Data;
+﻿using IUiUS_Projekat.Services;
 using System.Windows;
 
 namespace IUiUS_Projekat
 {
-    /// <summary>
-    /// Interaction logic for App.xaml
-    /// </summary>
     public partial class App : Application
     {
-    }
+        private void Application_Startup(object sender, StartupEventArgs e)
+        {
+            //UserFileGenerator.GenerateUsersFile();
 
+            var loginWindow = new Views.LoginWindow();
+            loginWindow.Show();
+        }
+    }
 }
