@@ -11,8 +11,8 @@ namespace IUiUS_Projekat.Services
         {
             var users = new List<User>
             {
-                new User("admin", "admin123", "Admin"),
-                new User("visitor", "visitor123", "Visitor")
+                new User("admin", "admin123", UserRole.Admin),
+                new User("visitor", "visitor123", UserRole.Visitor)
             };
 
             XmlSerializer serializer = new XmlSerializer(typeof(List<User>));

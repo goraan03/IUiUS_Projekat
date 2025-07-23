@@ -4,11 +4,11 @@
     {
         public string Username { get; set; }
         public string Password { get; set; }
-        public string Role { get; set; }
+        public UserRole Role { get; set; }
 
         public User() { }
 
-        public User(string username, string password, string role)
+        public User(string username, string password, UserRole role)
         {
             Username = username;
             Password = password;

@@ -7,7 +7,7 @@ namespace IUiUS_Projekat
     {
         private void Application_Startup(object sender, StartupEventArgs e)
         {
-            //UserFileGenerator.GenerateUsersFile();
+            UserFileGenerator.GenerateUsersFile();
 
             var loginWindow = new Views.LoginWindow();
             loginWindow.Show();
