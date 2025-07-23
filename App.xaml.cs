@@ -3,7 +3,7 @@ using System.Windows;
 
 namespace IUiUS_Projekat
 {
-    public partial class App : Application
+    public partial class App : System.Windows.Application
     {
         private void Application_Startup(object sender, StartupEventArgs e)
         {

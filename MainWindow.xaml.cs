@@ -66,7 +66,7 @@ namespace IUiUS_Projekat
             var link = (Hyperlink)sender;
             var kurs = (KursViewModel)((TextBlock)link.Parent).DataContext;
 
-            MessageBox.Show($"Kliknuto na: {kurs.Naziv}");
+            System.Windows.MessageBox.Show($"Kliknuto na: {kurs.Naziv}");
             // Ovde će kasnije ići otvaranje prozora za prikaz ili izmenu
         }
 
@@ -87,11 +87,11 @@ namespace IUiUS_Projekat
             var selektovani = kurseviVM.Where(k => k.IsSelected).ToList();
             if (selektovani.Count == 0)
             {
-                MessageBox.Show("Nijedan kurs nije označen.");
+                System.Windows.MessageBox.Show("Nijedan kurs nije označen.");
                 return;
             }
 
-            var potvrda = MessageBox.Show("Da li ste sigurni da želite da obrišete označene kurseve?", "Potvrda", MessageBoxButton.YesNo);
+            var potvrda = System.Windows.MessageBox.Show("Da li ste sigurni da želite da obrišete označene kurseve?", "Potvrda", MessageBoxButton.YesNo);
             if (potvrda == MessageBoxResult.Yes)
             {
                 var svi = KursService.LoadKursevi();
