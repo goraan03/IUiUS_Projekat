@@ -1,53 +1,64 @@
 ﻿<Window x:Class="IUiUS_Projekat.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:IUiUS_Projekat"
-        mc:Ignorable="d"
-        Title="Kursevi" Height="450" Width="800">
+        Title="Kursevi" Height="500" Width="800"
+        WindowStartupLocation="CenterScreen">
     <Grid Margin="10">
-        <StackPanel>
-            <CheckBox x:Name="SelectAllCheckBox" Content="Označi sve" Checked="SelectAll_Checked" Unchecked="SelectAll_Unchecked" Margin="0,0,0,10"/>
-            <DataGrid x:Name="KurseviGrid" AutoGenerateColumns="False" IsReadOnly="True" SelectionMode="Extended">
-                <DataGrid.Columns>
-                    <DataGridTemplateColumn Header="Izaberi">
-                        <DataGridTemplateColumn.CellTemplate>
-                            <DataTemplate>
-                                <CheckBox IsChecked="{Binding IsSelected, Mode=TwoWay}"/>
-                            </DataTemplate>
-                        </DataGridTemplateColumn.CellTemplate>
-                    </DataGridTemplateColumn>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
 
-                    <DataGridTemplateColumn Header="Naziv">
-                        <DataGridTemplateColumn.CellTemplate>
-                            <DataTemplate>
-                                <TextBlock>
-                                    <Hyperlink Click="Naziv_Click">
-                                        <TextBlock Text="{Binding Naziv}" />
-                                    </Hyperlink>
-                                </TextBlock>
-                            </DataTemplate>
-                        </DataGridTemplateColumn.CellTemplate>
-                    </DataGridTemplateColumn>
-
-                    <DataGridTemplateColumn Header="Slika">
-                        <DataGridTemplateColumn.CellTemplate>
-                            <DataTemplate>
-                                <Image Source="{Binding SlikaPath}" Height="50"/>
-                            </DataTemplate>
-                        </DataGridTemplateColumn.CellTemplate>
-                    </DataGridTemplateColumn>
-
-                    <DataGridTextColumn Header="Datum dodavanja" Binding="{Binding DatumDodavanja, StringFormat=dd.MM.yyyy.}" />
-                </DataGrid.Columns>
-            </DataGrid>
-            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,10,0,0">
-                <Button x:Name="DodajBtn" Content="Dodaj kurs" Click="DodajBtn_Click" Margin="5"/>
-                <Button x:Name="ObrisiBtn" Content="Obriši označene" Click="ObrisiBtn_Click" Margin="5"/>
-                <Button x:Name="IzlazBtn" Content="Izlaz" Click="IzlazBtn_Click" Margin="5"/>
-            </StackPanel>
-
+        <!-- Dugmad za akcije -->
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0 0 0 10">
+            <Button x:Name="DodajButton" Content="Dodaj kurs" Width="100" Margin="0,0,10,0" Click="Dodaj_Click" />
+            <Button x:Name="ObrisiButton" Content="Obriši označene" Width="120" Click="Obrisi_Click" />
         </StackPanel>
+
+        <!-- Tabela sa kursevima -->
+        <DataGrid x:Name="KurseviGrid" Grid.Row="1" AutoGenerateColumns="False" CanUserAddRows="False" Margin="0 10 0 10" IsReadOnly="True">
+            <DataGrid.Columns>
+                <!-- CheckBox kolona -->
+                <DataGridTemplateColumn Width="30">
+                    <DataGridTemplateColumn.Header>
+                        <CheckBox x:Name="SelectAllBox" Checked="SelectAll_Checked" Unchecked="SelectAll_Unchecked"/>
+                    </DataGridTemplateColumn.Header>
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <CheckBox IsChecked="{Binding IsSelected}" />
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+
+                <!-- Hyperlink za naziv -->
+                <DataGridTemplateColumn Header="Naziv" Width="*">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <TextBlock>
+                                <Hyperlink Click="Naziv_Click">
+                                    <Run Text="{Binding Naziv}" />
+                                </Hyperlink>
+                            </TextBlock>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+
+                <!-- Slika -->
+                <DataGridTemplateColumn Header="Slika" Width="100">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Image Source="{Binding SlikaPath}" Width="80" Height="50" Stretch="UniformToFill"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+
+                <!-- Datum -->
+                <DataGridTextColumn Header="Datum dodavanja" Binding="{Binding DatumDodavanja, StringFormat=\{0:dd.MM.yyyy HH:mm\}}" Width="150"/>
+            </DataGrid.Columns>
+        </DataGrid>
+
+        <!-- Dugme za izlaz (opciono) -->
+        <Button Content="Odjavi se" Grid.Row="2" HorizontalAlignment="Right" Width="100" Click="Izlaz_Click" />
     </Grid>
 </Window>

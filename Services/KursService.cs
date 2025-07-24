@@ -30,5 +30,13 @@ namespace IUiUS_Projekat.Services
                 serializer.Serialize(fs, kursevi);
             }
         }
+
+        public static void DodajKurs(Kurs noviKurs)
+        {
+            var kursevi = LoadKursevi();
+            kursevi.Add(noviKurs);
+            SaveKursevi(kursevi);
+        }
+
     }
 }

@@ -23,11 +23,12 @@ namespace IUiUS_Projekat
             LoadData();
             this.Title = $"Dobrodošao, {user.Username} ({user.Role})";
 
-            // Sakrij dugmad ako nije admin
-            if (_loggedInUser.Role != UserRole.Admin)
+            // Prikaži ili sakrij dugmad za admina
+            if (_loggedInUser.Role == UserRole.Visitor)
             {
-                DodajBtn.Visibility = Visibility.Collapsed;
-                ObrisiBtn.Visibility = Visibility.Collapsed;
+                DodajButton.Visibility = Visibility.Collapsed;
+                ObrisiButton.Visibility = Visibility.Collapsed;
+                SelectAllBox.Visibility = Visibility.Collapsed;
             }
         }
 
@@ -61,51 +62,76 @@ namespace IUiUS_Projekat
             KurseviGrid.Items.Refresh();
         }
 
-        private void Naziv_Click(object sender, RoutedEventArgs e)
-        {
-            var link = (Hyperlink)sender;
-            var kurs = (KursViewModel)((TextBlock)link.Parent).DataContext;
-
-            System.Windows.MessageBox.Show($"Kliknuto na: {kurs.Naziv}");
-            // Ovde će kasnije ići otvaranje prozora za prikaz ili izmenu
-        }
-
-        private void DodajBtn_Click(object sender, RoutedEventArgs e)
+        private void Dodaj_Click(object sender, RoutedEventArgs e)
         {
             var prozor = new DodajKursWindow();
             if (prozor.ShowDialog() == true)
             {
-                var kursevi = KursService.LoadKursevi();
-                kursevi.Add(prozor.NoviKurs);
-                KursService.SaveKursevi(kursevi);
-                LoadData(); // osvežavanje prikaza
-            }
-        }
-
-        private void ObrisiBtn_Click(object sender, RoutedEventArgs e)
-        {
-            var selektovani = kurseviVM.Where(k => k.IsSelected).ToList();
-            if (selektovani.Count == 0)
-            {
-                System.Windows.MessageBox.Show("Nijedan kurs nije označen.");
-                return;
-            }
-
-            var potvrda = System.Windows.MessageBox.Show("Da li ste sigurni da želite da obrišete označene kurseve?", "Potvrda", MessageBoxButton.YesNo);
-            if (potvrda == MessageBoxResult.Yes)
-            {
-                var svi = KursService.LoadKursevi();
-                var preostali = svi.Where(k => !selektovani.Any(s => s.Naziv == k.Naziv && s.Cena == k.Cena)).ToList();
-                KursService.SaveKursevi(preostali);
+                KursService.DodajKurs(prozor.NoviKurs);
                 LoadData();
             }
         }
 
-        private void IzlazBtn_Click(object sender, RoutedEventArgs e)
+        private void Izlaz_Click(object sender, RoutedEventArgs e)
         {
-            var login = new LoginWindow();
-            login.Show();
+            var loginWindow = new Views.LoginWindow();
+            loginWindow.Show();
             this.Close();
+        }
+
+
+        private void Obrisi_Click(object sender, RoutedEventArgs e)
+        {
+            var zaBrisanje = kurseviVM.Where(k => k.IsSelected).ToList();
+
+            if (!zaBrisanje.Any())
+            {
+                System.Windows.MessageBox.Show("Niste izabrali nijedan kurs za brisanje.");
+                return;
+            }
+
+            var rezultat = System.Windows.MessageBox.Show("Da li ste sigurni da želite da obrišete izabrane kurseve?", "Potvrda", MessageBoxButton.YesNo);
+            if (rezultat == MessageBoxResult.Yes)
+            {
+                var svi = KursService.LoadKursevi();
+                foreach (var k in zaBrisanje)
+                {
+                    var kurs = svi.FirstOrDefault(x => x.Naziv == k.Naziv && x.OpisRtfPath == k.OpisRtfPath);
+                    if (kurs != null)
+                        svi.Remove(kurs);
+                }
+                KursService.SaveKursevi(svi);
+                LoadData();
+            }
+        }
+
+        private void Naziv_Click(object sender, RoutedEventArgs e)
+        {
+            var link = (Hyperlink)sender;
+            var kursVM = (KursViewModel)((TextBlock)link.Parent).DataContext;
+
+            var kurs = new Kurs
+            {
+                Naziv = kursVM.Naziv,
+                Cena = kursVM.Cena,
+                SlikaPath = kursVM.SlikaPath,
+                OpisRtfPath = kursVM.OpisRtfPath,
+                DatumDodavanja = kursVM.DatumDodavanja
+            };
+
+            if (_loggedInUser.Role == UserRole.Admin)
+            {
+                var izmenaWindow = new IzmeniKursWindow(kurs);
+                if (izmenaWindow.ShowDialog() == true)
+                {
+                    LoadData();
+                }
+            }
+            else
+            {
+                var prikazWindow = new PrikazKursaWindow(kurs);
+                prikazWindow.ShowDialog();
+            }
         }
     }
 

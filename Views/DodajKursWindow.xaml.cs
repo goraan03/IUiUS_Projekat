@@ -27,6 +27,8 @@ namespace IUiUS_Projekat.Views
             OpisBox.TextChanged += OpisBox_TextChanged;
         }
 
+
+
         private void IzaberiSliku_Click(object sender, RoutedEventArgs e)
         {
             Microsoft.Win32.OpenFileDialog dlg = new Microsoft.Win32.OpenFileDialog();
