@@ -2,6 +2,7 @@
 using System.IO;
 using System.Windows;
 using System.Windows.Documents;
+using System.Windows.Input;
 
 namespace IUiUS_Projekat.Views
 {
@@ -25,6 +26,12 @@ namespace IUiUS_Projekat.Views
         private void Zatvori_Click(object sender, RoutedEventArgs e)
         {
             Close();
+        }
+
+        private void WindowDrag(object sender, MouseButtonEventArgs e)
+        {
+            if (e.ChangedButton == MouseButton.Left)
+                this.DragMove();
         }
     }
 }

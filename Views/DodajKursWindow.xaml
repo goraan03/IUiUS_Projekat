@@ -20,7 +20,7 @@
                 <TextBlock Text="Naziv kursa:" Style="{StaticResource LabelStyle}"/>
                 <TextBox x:Name="NazivBox" Width="300"/>
 
-                <TextBlock Text="Cena (EUR):" Style="{StaticResource LabelStyle}" Margin="0,10,0,0"/>
+                <TextBlock Text="Cena (RSD):" Style="{StaticResource LabelStyle}" Margin="0,10,0,0"/>
                 <TextBox x:Name="CenaBox" Width="150"/>
 
                 <Button Content="Izaberi sliku" Width="150" Click="IzaberiSliku_Click" Margin="0,10,0,0"/>
