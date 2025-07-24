@@ -3,6 +3,7 @@ using IUiUS_Projekat.Services;
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows;
+using System.Windows.Input;
 
 namespace IUiUS_Projekat.Views
 {
@@ -25,7 +26,7 @@ namespace IUiUS_Projekat.Views
 
             if (user == null)
             {
-                System.Windows.MessageBox.Show("Pogrešno korisničko ime ili lozinka.", "Greška", MessageBoxButton.OK, MessageBoxImage.Error);
+                System.Windows.MessageBox.Show("Wrong username or password.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
             }
 
@@ -38,5 +39,12 @@ namespace IUiUS_Projekat.Views
         {
             System.Windows.Application.Current.Shutdown();
         }
+
+        private void Window_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            if (e.ButtonState == MouseButtonState.Pressed)
+                this.DragMove();
+        }
+
     }
 }

@@ -9,14 +9,14 @@
         AllowsTransparency="True"
         Background="Transparent">
 
-	<Border CornerRadius="20" Background="{StaticResource PanelBrush}" Padding="20">
+    <Border CornerRadius="20" Background="{StaticResource PanelBrush}" Padding="20" MouseLeftButtonDown="Window_MouseLeftButtonDown">
 		<Grid>
 			<Grid.RowDefinitions>
 				<RowDefinition Height="*"/>
 				<RowDefinition Height="Auto"/>
 			</Grid.RowDefinitions>
 
-			<!-- Glavni sadržaj -->
+			<!-- Glavni sadrzaj -->
 			<Grid Grid.Row="0" Margin="0,0,0,20">
 				<Grid.ColumnDefinitions>
 					<ColumnDefinition Width="250"/>
@@ -47,13 +47,13 @@
 						<ColumnDefinition Width="*"/>
 					</Grid.ColumnDefinitions>
 
-					<TextBlock Text="Datum dodavanja:" Style="{StaticResource LabelStyle}" Grid.Row="0" Grid.Column="0" VerticalAlignment="Center" />
+					<TextBlock Text="Date od adding:" Style="{StaticResource LabelStyle}" Grid.Row="0" Grid.Column="0" VerticalAlignment="Center" />
 					<TextBlock Text="{Binding DatumDodavanja}" Style="{StaticResource LabelStyle}" Grid.Row="0" Grid.Column="1" VerticalAlignment="Center" />
 
-					<TextBlock Text="Cena (RSD):" Style="{StaticResource LabelStyle}" Grid.Row="1" Grid.Column="0" Margin="0,10,0,0" VerticalAlignment="Center" />
+					<TextBlock Text="Price (RSD):" Style="{StaticResource LabelStyle}" Grid.Row="1" Grid.Column="0" Margin="0,10,0,0" VerticalAlignment="Center" />
 					<TextBlock Text="{Binding Cena}" Style="{StaticResource LabelStyle}" Grid.Row="1" Grid.Column="1" Margin="0,10,0,0" VerticalAlignment="Center" />
 
-					<TextBlock Text="Opis:" Style="{StaticResource LabelStyle}" Grid.Row="2" Grid.Column="0" Margin="0,20,0,5"/>
+					<TextBlock Text="Description:" Style="{StaticResource LabelStyle}" Grid.Row="2" Grid.Column="0" Margin="0,20,0,5"/>
 					<RichTextBox Name="OpisBox"
 								 Grid.Row="3" Grid.ColumnSpan="2"
 								 IsReadOnly="True"
@@ -69,7 +69,7 @@
 
 			<!-- Footer dugme -->
 			<Grid Grid.Row="1">
-				<Button Content="Zatvori" Width="100" Height="30"
+				<Button Content="Close" Width="100" Height="30"
                         HorizontalAlignment="Right" Click="Zatvori_Click"
                         Background="{StaticResource PrimaryBrush}"
                         Foreground="White" BorderBrush="Transparent"

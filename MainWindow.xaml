@@ -9,7 +9,7 @@
         WindowStyle="None"
         AllowsTransparency="True">
 
-    <Border CornerRadius="15" Padding="15" Background="{StaticResource PanelBrush}" Margin="10">
+    <Border CornerRadius="15" Padding="15" Background="{StaticResource PanelBrush}" Margin="10" MouseLeftButtonDown="Window_MouseLeftButtonDown">
         <Grid>
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto" />
@@ -19,29 +19,39 @@
 
             <!-- Dugmad za akcije -->
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0 0 0 10" Grid.Row="0">
-                <Button x:Name="DodajButton" Content="Dodaj kurs" Width="100" Margin="0,0,10,0" Click="Dodaj_Click" />
-                <Button x:Name="ObrisiButton" Content="Obriši označene" Width="120" Click="Obrisi_Click" />
+                <Button x:Name="DodajButton"
+                        Content="Add Course"
+                        Width="100"
+                        Height="30"
+                        Margin="0,0,10,0"
+                        Click="Dodaj_Click"/>
+                <Button x:Name="ObrisiButton"
+                        Content="Delete Course"
+                        Width="120"
+                        Height="30"
+                        Click="Obrisi_Click"/>
             </StackPanel>
 
             <!-- Tabela sa kursevima -->
             <DataGrid x:Name="KurseviGrid"
-          Grid.Row="1"
-          AutoGenerateColumns="False"
-          CanUserAddRows="False"
-          IsReadOnly="False"
-          Margin="0 10 0 10"
-          Background="{StaticResource PanelBrush}"
-          Foreground="{StaticResource TextBrush}"
-          RowBackground="#FF2D2D3F"
-          AlternatingRowBackground="#FF29293B"
-          BorderBrush="{StaticResource PanelBrush}" 
-          BorderThickness="1"
-          RowHeight="140"
-          HeadersVisibility="Column"
-          ColumnHeaderHeight="40"
-          GridLinesVisibility="None"
-          HorizontalContentAlignment="Center"
-          VerticalContentAlignment="Center">
+                      Grid.Row="1"
+                      AutoGenerateColumns="False"
+                      CanUserAddRows="False"
+                      IsReadOnly="False"
+                      Margin="0 10 0 10"
+                      Background="{StaticResource PanelBrush}"
+                      Foreground="{StaticResource TextBrush}"
+                      RowBackground="#FF2D2D3F"
+                      AlternatingRowBackground="#FF29293B"
+                      BorderBrush="{StaticResource PanelBrush}" 
+                      BorderThickness="1"
+                      RowHeight="140"
+                      HeadersVisibility="Column"
+                      ColumnHeaderHeight="40"
+                      GridLinesVisibility="None"
+                      HorizontalContentAlignment="Center"
+                      VerticalContentAlignment="Center"
+                      SelectionUnit="FullRow">
 
                 <!-- Stil za header -->
                 <DataGrid.ColumnHeaderStyle>
@@ -63,67 +73,67 @@
                     <DataGridTemplateColumn Width="Auto">
                         <DataGridTemplateColumn.Header>
                             <CheckBox x:Name="SelectAllBox"
-                          VerticalAlignment="Center"
-                          HorizontalAlignment="Center"
-                          Checked="SelectAll_Checked"
-                          Unchecked="SelectAll_Unchecked"
-                          ToolTip="Izaberi sve" />
+                                      VerticalAlignment="Center"
+                                      HorizontalAlignment="Center"
+                                      Checked="SelectAll_Checked"
+                                      Unchecked="SelectAll_Unchecked"
+                                      ToolTip="Izaberi sve" />
                         </DataGridTemplateColumn.Header>
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
-                                <CheckBox IsChecked="{Binding IsSelected, Mode=TwoWay}" 
-                              HorizontalAlignment="Center"
-                              VerticalAlignment="Center" />
+                                <CheckBox IsChecked="{Binding IsSelected, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
+                                          HorizontalAlignment="Center"
+                                          VerticalAlignment="Center" />
                             </DataTemplate>
                         </DataGridTemplateColumn.CellTemplate>
                     </DataGridTemplateColumn>
 
                     <!-- Naziv kursa -->
-                    <DataGridTemplateColumn Header="Naziv" Width="2*">
+                    <DataGridTemplateColumn Header="Name" Width="2*">
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
                                 <TextBlock FontSize="18" FontWeight="SemiBold" 
-                               TextTrimming="CharacterEllipsis"
-                               ToolTip="{Binding Naziv}"
-                               HorizontalAlignment="Center"
-                               VerticalAlignment="Center">
-                        <Hyperlink Click="Naziv_Click"
-                                   Foreground="{StaticResource PrimaryBrush}"
-                                   TextDecorations="{x:Null}">
-                            <Run Text="{Binding Naziv}" />
-                        </Hyperlink>
+                                           TextTrimming="CharacterEllipsis"
+                                           ToolTip="{Binding Naziv}"
+                                           HorizontalAlignment="Center"
+                                           VerticalAlignment="Center">
+                                    <Hyperlink Click="Naziv_Click"
+                                               Foreground="{StaticResource PrimaryBrush}"
+                                               TextDecorations="{x:Null}">
+                                        <Run Text="{Binding Naziv}" />
+                                    </Hyperlink>
                                 </TextBlock>
                             </DataTemplate>
                         </DataGridTemplateColumn.CellTemplate>
                     </DataGridTemplateColumn>
 
                     <!-- Slika kursa -->
-                    <DataGridTemplateColumn Header="Slika" Width="2*">
+                    <DataGridTemplateColumn Header="Image" Width="2*">
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
                                 <Border CornerRadius="10"
-                            BorderBrush="{StaticResource PrimaryBrush}"
-                            BorderThickness="1"
-                            Background="#FF222233"
-                            Padding="4"
-                            HorizontalAlignment="Center"
-                            VerticalAlignment="Center"
-                            Margin="5">
+                                        BorderBrush="{StaticResource PrimaryBrush}"
+                                        BorderThickness="1"
+                                        Background="#FF222233"
+                                        Padding="4"
+                                        HorizontalAlignment="Center"
+                                        VerticalAlignment="Center"
+                                        Margin="5">
                                     <Image Source="{Binding SlikaPath}"
-                               Width="200"
-                               Height="110"
-                               Stretch="UniformToFill"
-                               HorizontalAlignment="Center"
-                               VerticalAlignment="Center"/>
+                                           Width="200"
+                                           Height="110"
+                                           Stretch="UniformToFill"
+                                           HorizontalAlignment="Center"
+                                           VerticalAlignment="Center"/>
                                 </Border>
                             </DataTemplate>
                         </DataGridTemplateColumn.CellTemplate>
                     </DataGridTemplateColumn>
 
                     <!-- Datum dodavanja -->
-                    <DataGridTextColumn Header="Datum dodavanja"
-                            Width="1.5*"
-                            Binding="{Binding DatumDodavanja, StringFormat=\{0:dd.MM.yyyy HH:mm\}}">
+                    <DataGridTextColumn Header="Date of Adding"
+                                        Width="1.5*"
+                                        Binding="{Binding DatumDodavanja, StringFormat=\{0:dd.MM.yyyy HH:mm\}}">
                         <DataGridTextColumn.ElementStyle>
                             <Style TargetType="TextBlock">
                                 <Setter Property="HorizontalAlignment" Value="Center"/>
@@ -137,12 +147,13 @@
                 </DataGrid.Columns>
             </DataGrid>
 
-
-
-
-
             <!-- Dugme za izlaz -->
-            <Button Content="Odjavi se" Grid.Row="2" HorizontalAlignment="Right" Width="100" Click="Izlaz_Click" />
+            <Button Content="Log Out"
+                    Grid.Row="2"
+                    HorizontalAlignment="Right"
+                    Width="100"
+                    Height="30"
+                    Click="Izlaz_Click"/>
         </Grid>
     </Border>
 </Window>

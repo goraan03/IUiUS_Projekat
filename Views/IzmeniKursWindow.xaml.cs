@@ -9,6 +9,7 @@ using System.Windows.Media;
 using Microsoft.Win32;
 using System.Windows.Forms;
 using IUiUS_Projekat.Services;
+using System.Windows.Input;
 
 namespace IUiUS_Projekat.Views
 {
@@ -57,7 +58,7 @@ namespace IUiUS_Projekat.Views
         {
             if (string.IsNullOrWhiteSpace(NazivBox.Text) || !double.TryParse(CenaBox.Text, out double cena))
             {
-                System.Windows.MessageBox.Show("Popunite validno naziv i cenu.");
+                System.Windows.MessageBox.Show("FIll the price and name correctly.");
                 return;
             }
 
@@ -99,8 +100,12 @@ namespace IUiUS_Projekat.Views
         private void FontSizeBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             if (FontSizeBox.SelectedItem != null)
-                OpisBox.Selection.ApplyPropertyValue(TextElement.FontSizeProperty, FontSizeBox.SelectedItem);
+            {
+                double fontSize = Convert.ToDouble(FontSizeBox.SelectedItem);
+                OpisBox.Selection.ApplyPropertyValue(TextElement.FontSizeProperty, fontSize);
+            }
         }
+
 
         private void ColorButton_Click(object sender, RoutedEventArgs e)
         {
@@ -118,7 +123,14 @@ namespace IUiUS_Projekat.Views
             var textRange = new TextRange(OpisBox.Document.ContentStart, OpisBox.Document.ContentEnd);
             var text = textRange.Text;
             var wordCount = text.Split(new[] { ' ', '\n', '\r' }, StringSplitOptions.RemoveEmptyEntries).Length;
-            WordCountText.Text = $"Broj reči: {wordCount}";
+            WordCountText.Text = $"Word Count: {wordCount}";
         }
+
+        private void Window_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            if (e.ButtonState == MouseButtonState.Pressed)
+                this.DragMove();
+        }
+
     }
 }

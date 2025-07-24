@@ -8,6 +8,7 @@ using System.Windows.Controls;
 using System.Windows.Documents;
 using System.Windows.Media;
 using System.Windows.Forms;
+using System.Windows.Input;
 
 
 namespace IUiUS_Projekat.Views
@@ -21,7 +22,6 @@ namespace IUiUS_Projekat.Views
         {
             InitializeComponent();
 
-            // Popunjavanje fontova i velicina
             FontFamilyBox.ItemsSource = Fonts.SystemFontFamilies.OrderBy(f => f.Source);
             FontSizeBox.ItemsSource = new[] { 8, 10, 12, 14, 16, 18, 20, 24, 28, 32, 36 };
             OpisBox.TextChanged += OpisBox_TextChanged;
@@ -45,20 +45,21 @@ namespace IUiUS_Projekat.Views
         {
             if (string.IsNullOrWhiteSpace(NazivBox.Text) || string.IsNullOrWhiteSpace(CenaBox.Text))
             {
-                System.Windows.MessageBox.Show("Popunite sva obavezna polja.");
+                System.Windows.MessageBox.Show("Fill all fields.");
                 return;
             }
 
             if (!double.TryParse(CenaBox.Text, out double cena))
             {
-                System.Windows.MessageBox.Show("Cena mora biti broj.");
+                System.Windows.MessageBox.Show("Price must be a number.");
                 return;
             }
 
             string opisRtfPath = $"Opis_{DateTime.Now.Ticks}.rtf";
             using (FileStream fs = new FileStream(opisRtfPath, FileMode.Create))
             {
-                OpisBox.Selection.Save(fs, System.Windows.DataFormats.Rtf);
+                new TextRange(OpisBox.Document.ContentStart, OpisBox.Document.ContentEnd)
+                    .Save(fs, System.Windows.DataFormats.Rtf);
             }
 
             NoviKurs = new Kurs
@@ -73,6 +74,7 @@ namespace IUiUS_Projekat.Views
             DialogResult = true;
             Close();
         }
+
 
         private void Otkazi_Click(object sender, RoutedEventArgs e)
         {
@@ -109,9 +111,11 @@ namespace IUiUS_Projekat.Views
         {
             if (FontSizeBox.SelectedItem != null)
             {
-                OpisBox.Selection.ApplyPropertyValue(TextElement.FontSizeProperty, FontSizeBox.SelectedItem);
+                double size = Convert.ToDouble(FontSizeBox.SelectedItem);
+                OpisBox.Selection.ApplyPropertyValue(TextElement.FontSizeProperty, size);
             }
         }
+
 
         private void ColorButton_Click(object sender, RoutedEventArgs e)
         {
@@ -128,7 +132,14 @@ namespace IUiUS_Projekat.Views
             var textRange = new TextRange(OpisBox.Document.ContentStart, OpisBox.Document.ContentEnd);
             var text = textRange.Text;
             var wordCount = text.Split(new[] { ' ', '\n', '\r' }, StringSplitOptions.RemoveEmptyEntries).Length;
-            WordCountText.Text = $"Broj reči: {wordCount}";
+            WordCountText.Text = $"Word Count: {wordCount}";
         }
+
+        private void Window_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            if (e.ButtonState == MouseButtonState.Pressed)
+                this.DragMove();
+        }
+
     }
 }

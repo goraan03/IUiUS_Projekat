@@ -8,42 +8,81 @@
         ResizeMode="NoResize"
         WindowStyle="None">
 
-    <Border CornerRadius="15" Padding="20" Background="{StaticResource PanelBrush}">
-        <Grid Margin="10">
+    <Border CornerRadius="15" Padding="30" Background="{StaticResource PanelBrush}" MouseLeftButtonDown="Window_MouseLeftButtonDown">
+        <Grid Margin="0">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="*"/>
                 <RowDefinition Height="Auto"/>
             </Grid.RowDefinitions>
 
-            <StackPanel Grid.Row="0" Margin="0,0,0,10">
-                <TextBlock Text="Naziv kursa:" Style="{StaticResource LabelStyle}"/>
-                <TextBox x:Name="NazivBox" Width="300"/>
+            <!-- GORNJI DEO -->
+            <StackPanel Grid.Row="0" Orientation="Horizontal" HorizontalAlignment="Left" Margin="0,0,0,20">
+                <StackPanel Width="350">
+                    <TextBlock Text="Course Name:" Style="{StaticResource LabelStyle}" />
+                    <TextBox x:Name="NazivBox" Width="300" Margin="100,-20,0,10"/>
 
-                <TextBlock Text="Cena (RSD):" Style="{StaticResource LabelStyle}" Margin="0,10,0,0"/>
-                <TextBox x:Name="CenaBox" Width="150"/>
+                    <TextBlock Text="Price (RSD):" Style="{StaticResource LabelStyle}" Margin="0, 0, 20, 0"/>
+                    <TextBox x:Name="CenaBox" Width="150" Margin="0,-20,0,10"/>
 
-                <Button Content="Izaberi sliku" Width="150" Click="IzaberiSliku_Click" Margin="0,10,0,0"/>
-                <Image x:Name="SlikaPreview" Width="150" Height="100" Margin="0,5,0,0"/>
-            </StackPanel>
-
-            <StackPanel Grid.Row="1">
-                <TextBlock Text="Opis kursa:" Style="{StaticResource LabelStyle}" Margin="0,0,0,5"/>
-                <StackPanel Orientation="Horizontal" Margin="0,0,0,5">
-                    <Button Content="B" Click="BoldButton_Click"/>
-                    <Button Content="I" Click="ItalicButton_Click"/>
-                    <Button Content="U" Click="UnderlineButton_Click"/>
-                    <ComboBox x:Name="FontFamilyBox" Width="150" Margin="5,0"/>
-                    <ComboBox x:Name="FontSizeBox" Width="60"/>
-                    <Button Content="Boja" Click="ColorButton_Click" Margin="5,0"/>
+                    <Button Content="Choose Image"
+                            Width="150"
+                            Height="30"
+                            Margin="0,0,0,10"
+                            Click="IzaberiSliku_Click"/>
                 </StackPanel>
-                <RichTextBox x:Name="OpisBox" Height="200" Margin="0,5,0,0"/>
+
+                <Image x:Name="SlikaPreview"
+                       Width="200"
+                       Height="130"
+                       Margin="30,10,0,0"
+                       Stretch="UniformToFill"
+                       HorizontalAlignment="Left"
+                       VerticalAlignment="Top"
+                       ClipToBounds="True"/>
             </StackPanel>
 
-            <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,10,0,0">
-                <TextBlock x:Name="WordCountText" VerticalAlignment="Center" Margin="0,0,20,0" Foreground="White"/>
-                <Button Content="Dodaj" Width="100" Click="Dodaj_Click"/>
-                <Button Content="Otkaži" Width="100" Click="Otkazi_Click"/>
+            <!-- SREDINA -->
+            <StackPanel Grid.Row="1">
+                <TextBlock Text="Course Description:" Style="{StaticResource LabelStyle}" Margin="0,0,0,5"/>
+
+                <StackPanel Orientation="Horizontal" Margin="0,0,0,10">
+                    <Button Content="B" Width="30" Height="30" Margin="0,0,5,0" Click="BoldButton_Click"/>
+                    <Button Content="I" Width="30" Height="30" Margin="0,0,5,0" Click="ItalicButton_Click"/>
+                    <Button Content="U" Width="30" Height="30" Margin="0,0,10,0" Click="UnderlineButton_Click"/>
+
+                    <ComboBox x:Name="FontFamilyBox" Width="180" Margin="0,0,5,0" SelectionChanged="FontFamilyBox_SelectionChanged"/>
+                    <ComboBox x:Name="FontSizeBox" Width="60" Margin="0,0,5,0" SelectionChanged="FontSizeBox_SelectionChanged"/>
+                    <Button Content="Color" Width="60" Click="ColorButton_Click"/>
+                </StackPanel>
+
+                <RichTextBox x:Name="OpisBox"
+                             Height="200"
+                             Background="White"
+                             Foreground="Black"
+                             BorderThickness="1"
+                             BorderBrush="Gray"/>
+            </StackPanel>
+
+            <!-- DONJI DEO -->
+            <StackPanel Grid.Row="2"
+                        Orientation="Horizontal"
+                        HorizontalAlignment="Right"
+                        Margin="0,20,0,0">
+                <TextBlock x:Name="WordCountText"
+                           VerticalAlignment="Center"
+                           Margin="0,0,20,0"
+                           Foreground="White"
+                           FontStyle="Italic"/>
+                <Button Content="Add"
+                        Width="100"
+                        Height="30"
+                        Margin="0,0,10,0"
+                        Click="Dodaj_Click"/>
+                <Button Content="Cancel"
+                        Width="100"
+                        Height="30"
+                        Click="Otkazi_Click"/>
             </StackPanel>
         </Grid>
     </Border>

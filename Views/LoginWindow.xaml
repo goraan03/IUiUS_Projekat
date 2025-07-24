@@ -8,20 +8,40 @@
         Background="{StaticResource BackgroundBrush}"
         WindowStyle="None">
 
-    <Border CornerRadius="10" Padding="30" Background="{StaticResource PanelBrush}">
-        <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
-            <TextBlock Text="Prijava na sistem" FontSize="20" FontWeight="Bold" Margin="0,0,0,20" Foreground="White"/>
+    <Border CornerRadius="10" Padding="30" Background="{StaticResource PanelBrush}" MouseLeftButtonDown="Window_MouseLeftButtonDown">
+        <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center" Width="280">
 
-            <TextBlock Text="Korisničko ime:" Style="{StaticResource LabelStyle}"/>
+            <!-- Naslov -->
+            <TextBlock Text="Login Form"
+                       FontSize="22"
+                       FontWeight="Bold"
+                       Foreground="White"
+                       HorizontalAlignment="Center"
+                       Margin="0,0,0,30"/>
+
+            <!-- Korisnicko ime -->
+            <TextBlock Text="Username:" Style="{StaticResource LabelStyle}" Margin="15,0,0,2"/>
             <TextBox x:Name="UsernameBox" Width="250"/>
 
-            <TextBlock Text="Lozinka:" Style="{StaticResource LabelStyle}" Margin="0,10,0,0"/>
+            <!-- Lozinka -->
+            <TextBlock Text="Password:" Style="{StaticResource LabelStyle}" Margin="15,10,0,2"/>
             <PasswordBox x:Name="PasswordBox" Width="250"/>
 
-            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,20,0,0">
-                <Button Content="Prijavi se" Width="100" Click="Login_Click"/>
-                <Button Content="Izlaz" Width="100" Click="Exit_Click"/>
+            <!-- Dugmad -->
+            <StackPanel Orientation="Horizontal"
+                        HorizontalAlignment="Center"
+                        Margin="0,20,0,0">
+                <Button Content="Log In"
+                        Width="100" 
+                        Height="30"
+                        Click="Login_Click"
+                        Margin="0,0,10,0"/>
+                <Button Content="Exit"
+                        Width="100" 
+                        Height="30"
+                        Click="Exit_Click"/>
             </StackPanel>
+
         </StackPanel>
     </Border>
 </Window>

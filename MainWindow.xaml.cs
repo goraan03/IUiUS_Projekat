@@ -2,12 +2,13 @@
 using IUiUS_Projekat.Services;
 using IUiUS_Projekat.Views;
 using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Documents;
+using System.Windows.Input;
 
 namespace IUiUS_Projekat
 {
@@ -21,7 +22,7 @@ namespace IUiUS_Projekat
             InitializeComponent();
             _loggedInUser = user;
             LoadData();
-            this.Title = $"Dobrodošao, {user.Username} ({user.Role})";
+            this.Title = $"elcome, {user.Username} ({user.Role})";
 
             if (_loggedInUser.Role == UserRole.Visitor)
             {
@@ -44,7 +45,21 @@ namespace IUiUS_Projekat
                     DatumDodavanja = k.DatumDodavanja,
                     IsSelected = false
                 }));
+
+            foreach (var kvm in kurseviVM)
+            {
+                kvm.PropertyChanged += KursViewModel_PropertyChanged;
+            }
+
             KurseviGrid.ItemsSource = kurseviVM;
+        }
+
+        private void KursViewModel_PropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            if (e.PropertyName == nameof(KursViewModel.IsSelected))
+            {
+                KurseviGrid.Items.Refresh();
+            }
         }
 
         private void SelectAll_Checked(object sender, RoutedEventArgs e)
@@ -78,18 +93,21 @@ namespace IUiUS_Projekat
             this.Close();
         }
 
-
         private void Obrisi_Click(object sender, RoutedEventArgs e)
         {
             var zaBrisanje = kurseviVM.Where(k => k.IsSelected).ToList();
 
             if (!zaBrisanje.Any())
             {
-                System.Windows.MessageBox.Show("Niste izabrali nijedan kurs za brisanje.");
+                System.Windows.MessageBox.Show("No course is choosen for deleting.");
                 return;
             }
 
-            var rezultat = System.Windows.MessageBox.Show("Da li ste sigurni da želite da obrišete izabrane kurseve?", "Potvrda", MessageBoxButton.YesNo);
+            var rezultat = System.Windows.MessageBox.Show(
+            "Are you sure you want to delete selected courses?",
+            "Aproval",
+            MessageBoxButton.YesNo,
+            MessageBoxImage.Question);
             if (rezultat == MessageBoxResult.Yes)
             {
                 var svi = KursService.LoadKursevi();
@@ -132,10 +150,35 @@ namespace IUiUS_Projekat
                 prikazWindow.ShowDialog();
             }
         }
+
+        private void Window_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            if (e.ButtonState == MouseButtonState.Pressed)
+                this.DragMove();
+        }
     }
 
-    public class KursViewModel : Kurs
+    public class KursViewModel : Kurs, INotifyPropertyChanged
     {
-        public bool IsSelected { get; set; }
+        private bool _isSelected;
+
+        public bool IsSelected
+        {
+            get => _isSelected;
+            set
+            {
+                if (_isSelected != value)
+                {
+                    _isSelected = value;
+                    OnPropertyChanged(nameof(IsSelected));
+                }
+            }
+        }
+
+        public event PropertyChangedEventHandler PropertyChanged;
+        protected void OnPropertyChanged(string propName)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propName));
+        }
     }
 }
