@@ -1,0 +1,92 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <!-- BOJE -->
+    <Color x:Key="DarkBackground">#FF1E1E2F</Color>
+    <!-- Glavna pozadina -->
+    <Color x:Key="DarkPanel">#FF2D2D3F</Color>
+    <!-- Border pozadina -->
+    <Color x:Key="PrimaryBlue">#FF3A6EA5</Color>
+    <!-- Akcent boja -->
+    <Color x:Key="AccentPurple">#FF7D5BA6</Color>
+    <!-- Sekundarna -->
+    <Color x:Key="LightText">#FFF0F0F0</Color>
+    <!-- Tekst -->
+    <Color x:Key="ButtonHover">#FF4C8EDC</Color>
+    <!-- Hover efekat -->
+
+    <!-- Četkice -->
+    <SolidColorBrush x:Key="BackgroundBrush" Color="{StaticResource DarkBackground}" />
+    <SolidColorBrush x:Key="PanelBrush" Color="{StaticResource DarkPanel}" />
+    <SolidColorBrush x:Key="PrimaryBrush" Color="{StaticResource PrimaryBlue}" />
+    <SolidColorBrush x:Key="TextBrush" Color="{StaticResource LightText}" />
+    <SolidColorBrush x:Key="HoverBrush" Color="{StaticResource ButtonHover}" />
+
+    <!-- Stil za TextBlock -->
+    <Style x:Key="LabelStyle" TargetType="TextBlock">
+        <Setter Property="Foreground" Value="{StaticResource TextBrush}" />
+        <Setter Property="FontWeight" Value="Bold"/>
+        <Setter Property="FontSize" Value="14"/>
+        <Setter Property="Margin" Value="0,5,0,0"/>
+    </Style>
+
+    <!-- Stil za Button -->
+    <Style TargetType="Button">
+        <Setter Property="Background" Value="{StaticResource PrimaryBrush}" />
+        <Setter Property="Foreground" Value="White"/>
+        <Setter Property="Padding" Value="8,4"/>
+        <Setter Property="FontWeight" Value="Bold"/>
+        <Setter Property="Margin" Value="5,0,0,0"/>
+        <Setter Property="Cursor" Value="Hand"/>
+        <Setter Property="BorderBrush" Value="Transparent"/>
+        <Setter Property="BorderThickness" Value="0"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Button">
+                    <Border Background="{TemplateBinding Background}" CornerRadius="6">
+                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+        <Style.Triggers>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="Background" Value="{StaticResource HoverBrush}" />
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+
+    <!-- Stil za TextBox -->
+    <Style TargetType="TextBox">
+        <Setter Property="Foreground" Value="White"/>
+        <Setter Property="Background" Value="#FF3A3A4F"/>
+        <Setter Property="BorderBrush" Value="#FF5A5A7F"/>
+        <Setter Property="BorderThickness" Value="1"/>
+        <Setter Property="Margin" Value="0,2,0,10"/>
+        <Setter Property="Padding" Value="5"/>
+        <Setter Property="FontSize" Value="14"/>
+        <Setter Property="CaretBrush" Value="White"/>
+    </Style>
+
+    <!-- Stil za PasswordBox -->
+    <Style TargetType="PasswordBox">
+        <Setter Property="Foreground" Value="White"/>
+        <Setter Property="Background" Value="#FF3A3A4F"/>
+        <Setter Property="BorderBrush" Value="#FF5A5A7F"/>
+        <Setter Property="BorderThickness" Value="1"/>
+        <Setter Property="Margin" Value="0,2,0,10"/>
+        <Setter Property="Padding" Value="5"/>
+        <Setter Property="FontSize" Value="14"/>
+        <Setter Property="CaretBrush" Value="White"/>
+    </Style>
+
+    <!-- Stil za ComboBox -->
+    <Style TargetType="ComboBox">
+        <Setter Property="Background" Value="#FF3A3A4F"/>
+        <Setter Property="Foreground" Value="White"/>
+        <Setter Property="Margin" Value="0,2,0,10"/>
+        <Setter Property="Padding" Value="4"/>
+        <Setter Property="FontSize" Value="14"/>
+    </Style>
+
+</ResourceDictionary>

@@ -7,7 +7,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Documents;
 using System.Windows.Media;
-using System.Windows.Forms; // For ColorDialog
+using System.Windows.Forms;
 
 
 namespace IUiUS_Projekat.Views
@@ -21,7 +21,7 @@ namespace IUiUS_Projekat.Views
         {
             InitializeComponent();
 
-            // Popunjavanje fontova i veličina
+            // Popunjavanje fontova i velicina
             FontFamilyBox.ItemsSource = Fonts.SystemFontFamilies.OrderBy(f => f.Source);
             FontSizeBox.ItemsSource = new[] { 8, 10, 12, 14, 16, 18, 20, 24, 28, 32, 36 };
             OpisBox.TextChanged += OpisBox_TextChanged;

@@ -23,7 +23,6 @@ namespace IUiUS_Projekat
             LoadData();
             this.Title = $"Dobrodošao, {user.Username} ({user.Role})";
 
-            // Prikaži ili sakrij dugmad za admina
             if (_loggedInUser.Role == UserRole.Visitor)
             {
                 DodajButton.Visibility = Visibility.Collapsed;

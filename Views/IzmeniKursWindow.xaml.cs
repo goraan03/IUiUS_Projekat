@@ -23,12 +23,10 @@ namespace IUiUS_Projekat.Views
             kurs = kursZaIzmenu;
             slikaPath = kurs.SlikaPath;
 
-            // Popuni UI
             NazivBox.Text = kurs.Naziv;
             CenaBox.Text = kurs.Cena.ToString();
             SlikaPreview.Source = new System.Windows.Media.Imaging.BitmapImage(new Uri(slikaPath));
 
-            // RTF opis
             if (File.Exists(kurs.OpisRtfPath))
             {
                 using (FileStream fs = new FileStream(kurs.OpisRtfPath, FileMode.Open))
